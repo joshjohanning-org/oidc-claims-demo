@@ -17,3 +17,42 @@ jobs:
     with:
       runs-on: ubuntu-latest
     secrets: inherit
+
+
+
+
+#---------------------------------------#
+
+  print-oidc-token:
+    runs-on: ubuntu-latest
+    steps:
+         
+    # print oidc token claims
+    - name: print oidc token claims
+      run: |
+          IDTOKEN=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" -H "Accept: application/json; api-version=2.0" -H "Content-Type: application/json"  | jq -r '.value')
+          jwtd() {
+            if [[ -x $(command -v jq) ]]; then
+                jq -R 'split(".") | .[1] | @base64d | fromjson' <<< "${1}" > jwt_claims.json
+                cat jwt_claims.json
+                echo ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL}} 
+            fi
+          }
+          jwtd $IDTOKEN
+    - name: print runner context
+      env:
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
+      run: |
+          echo "$RUNNER_CONTEXT"
+    - name: print github context
+      env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: |
+          echo "$GITHUB_CONTEXT"
+    - name: print additional claims added to actions runtime environment
+      run: |
+          echo "ACTOR_ID: $GITHUB_ACTOR_ID"
+          echo "REPOSITORY_ID: $GITHUB_REPOSITORY_ID"
+          echo "REPOSITORY_OWNER_ID: $GITHUB_REPOSITORY_OWNER_ID"
+          echo "WORKFLOW_REF: $GITHUB_WORKFLOW_REF"
+          echo "WORKFLOW_SHA: $GITHUB_WORKFLOW_SHA"
