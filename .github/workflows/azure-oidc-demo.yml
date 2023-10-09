@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
   
 jobs:
-  azure:
+  login:
     uses: joshjohanning-org/reusable-workflows/.github/workflows/azure-oidc-sample.yml@azure-oidc-claims
     permissions:
       id-token: write # this is needed for oidc
