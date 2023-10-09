@@ -10,7 +10,7 @@ on:
   
 jobs:
   azure:
-    uses: joshjohanning-org/reusable-workflows/.github/workflows/azure-oidc-sample.yml@azure-oidc-claims
+    uses: joshjohanning-org/reusable-workflows/.github/workflows/azure-oidc-sample.yml@fake-deleteme
     permissions:
       id-token: write # this is needed for oidc
       contents: read # this is needed to clone repo
