@@ -19,9 +19,6 @@ jobs:
       keyvault: josh-key-vault-test
     secrets: inherit
 
-
-
-
 #---------------------------------------#
 
   print-oidc-token:
