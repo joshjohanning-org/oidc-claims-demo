@@ -30,14 +30,8 @@ jobs:
     steps:
 
     # debug using the action
-    - name: Checkout actions-oidc-debugger
-      uses: actions/checkout@v4
-      with:
-        repository: github/actions-oidc-debugger
-        ref: main
-        path: ./.github/actions/actions-oidc-debugger
     - name: Debug OIDC Claims
-      uses: ./.github/actions/actions-oidc-debugger
+      uses: github/actions-oidc-debugger@main
       with:
         audience: '${{ github.server_url }}/${{ github.repository_owner }}'
         
