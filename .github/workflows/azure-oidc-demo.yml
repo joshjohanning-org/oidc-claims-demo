@@ -28,8 +28,21 @@ jobs:
       id-token: write # this is needed for oidc
       contents: read # this is needed to clone repo
     steps:
-         
-    # print oidc token claims
+
+    # debug using the action
+    - name: Checkout actions-oidc-debugger
+      uses: actions/checkout@v4
+      with:
+        repository: github/actions-oidc-debugger
+        ref: main
+        token: ${{ secrets.your-checkout-token }}
+        path: ./.github/actions/actions-oidc-debugger
+    - name: Debug OIDC Claims
+      uses: ./.github/actions/actions-oidc-debugger
+      with:
+        audience: 'https://github.com/github'
+        
+    # print oidc token claims manually
     - name: print oidc token claims
       run: |
           IDTOKEN=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" -H "Accept: application/json; api-version=2.0" -H "Content-Type: application/json"  | jq -r '.value')
