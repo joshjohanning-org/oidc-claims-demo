@@ -10,11 +10,10 @@ on:
   
 jobs:
   azure:
-    uses: joshjohanning-org/reusable-workflows/.github/workflows/azure-oidc-sample.yml@v1 # v1 is 'approved' workflow
-    # if within same organization, can specify permissions in reusable workflow
-    # permissions:
-    #   id-token: write # this is needed for oidc
-    #   contents: read # this is needed to clone repo
+    uses: joshjohanning-org/reusable-workflows/.github/workflows/azure-oidc-sample.yml@main # v1 is 'approved' workflow
+    permissions:
+      id-token: write # this is needed for oidc
+      contents: read # this is needed to clone repo
     with:
       runs-on: ubuntu-latest
       keyvault: josh-key-vault-test
