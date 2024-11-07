@@ -10,7 +10,7 @@ on:
   
 jobs:
   azure:
-    uses: joshjohanning-org/reusable-workflows/.github/workflows/azure-oidc-sample.yml@v1 # v1 is 'approved' workflow
+    uses: joshjohanning-org/reusable-workflows/.github/workflows/azure-oidc-sample.yml@v1.0.13 # v1 is 'approved' workflow
     # if within same organization, can specify permissions in reusable workflow
     # permissions:
     #   id-token: write # this is needed for oidc
