@@ -11,16 +11,14 @@ on:
 jobs:
   azure:
     uses: joshjohanning-org/reusable-workflows/.github/workflows/azure-oidc-sample.yml@v1 # v1 is 'approved' workflow
-    permissions:
-      id-token: write # this is needed for oidc
-      contents: read # this is needed to clone repo
+    # if within same organization, can specify permissions in reusable workflow
+    # permissions:
+    #   id-token: write # this is needed for oidc
+    #   contents: read # this is needed to clone repo
     with:
       runs-on: ubuntu-latest
       keyvault: josh-key-vault-test
     secrets: inherit
-
-
-
 
 #---------------------------------------#
 
@@ -30,8 +28,14 @@ jobs:
       id-token: write # this is needed for oidc
       contents: read # this is needed to clone repo
     steps:
-         
-    # print oidc token claims
+
+    # debug using the action
+    - name: Debug OIDC Claims
+      uses: github/actions-oidc-debugger@main
+      with:
+        audience: '${{ github.server_url }}/${{ github.repository_owner }}'
+        
+    # print oidc token claims manually
     - name: print oidc token claims
       run: |
           IDTOKEN=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" -H "Accept: application/json; api-version=2.0" -H "Content-Type: application/json"  | jq -r '.value')

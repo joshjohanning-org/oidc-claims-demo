@@ -9,4 +9,4 @@ gh oidc-sub set --repo joshjohanning-org/oidc-claims-demo --subs "job_workflow_r
 gh oidc-sub get --repo joshjohanning-org/oidc-claims-demo
 ```
 
-edit
+Related blog post: https://josh-ops.com/posts/github-actions-oidc-reusable-workflows/
